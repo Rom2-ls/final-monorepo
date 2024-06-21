@@ -2,14 +2,25 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+type AuthResponse {
+  access_token: String!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
   password: String!
 }
 
+input LoginUserInput {
+  email: String!
+  password: String!
+}
+
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
+  login(loginUserInput: LoginUserInput!): AuthResponse!
+  register(createUserInput: CreateUserInput!): User!
   removeUser(id: String!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
 }

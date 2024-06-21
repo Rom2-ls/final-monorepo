@@ -12,17 +12,12 @@ input CreateUserInput {
   password: String!
 }
 
-input LoginUserInput {
-  email: String!
-  password: String!
-}
-
 type Mutation {
   createUser(createUserInput: CreateUserInput!): User!
-  login(loginUserInput: LoginUserInput!): AuthResponse!
-  register(createUserInput: CreateUserInput!): User!
+  register(registerUserInput: CreateUserInput!): User!
   removeUser(id: String!): User!
   updateUser(updateUserInput: UpdateUserInput!): User!
+  userLogin(password: String!, username: String!): AuthResponse!
 }
 
 type Query {

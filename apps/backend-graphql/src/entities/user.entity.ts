@@ -1,4 +1,6 @@
 import { ObjectType, Field } from '@nestjs/graphql';
+import { Message } from './message.entity';
+import { Group } from './groups.entity';
 
 @ObjectType()
 export class User {
@@ -13,4 +15,10 @@ export class User {
 
   @Field(() => String)
   password: string;
+
+  @Field(() => [Message], { nullable: true })
+  messages?: Message[];
+
+  @Field(() => [Group], { nullable: true })
+  groups?: Group[];
 }

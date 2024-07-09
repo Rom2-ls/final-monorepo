@@ -2,13 +2,13 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { CreateUserInput } from '../user/dto/create-user.input';
-import { User } from '../user/entities/user.entity';
-import { LocalAuthGuard } from '../guards/local-auth.guard';
+import { User } from '../../entities/user.entity';
+import { LocalAuthGuard } from '../../guards/local-auth.guard';
 import { PrismaService } from '../prisma/prisma.service';
 
 import { AuthService } from './auth.service';
-import { AuthResponse } from './dto/auth-response';
-import { LoginUserInput } from './dto/login-user.input';
+import { AuthResponse } from './dto/auth-response.dto';
+import { LoginUserInput } from './dto/login-user.input.dto';
 
 @Resolver()
 export class AuthResolver {

@@ -1,0 +1,44 @@
+.left-sidebar {
+}
+
+.conversations {
+}
+
+.conversation {
+    padding: 10px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    border-bottom: 1px solid #ccc;
+}
+
+.conversation:hover {
+    background-color: #f0f0f0;
+}
+
+.active {
+    background-color: #f0f0f0;
+}
+
+.status-indicator {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.green {
+    background-color: green;
+}
+
+.grey {
+    background-color: grey;
+}
+
+.orange {
+    background-color: orange;
+}
+
+.person-name {
+    margin-left: 10px;
+}

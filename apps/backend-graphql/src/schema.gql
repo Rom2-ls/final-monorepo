@@ -6,13 +6,44 @@ type AuthResponse {
   access_token: String!
 }
 
+input CreateGroupInput {
+  name: String!
+  users: [String!]
+}
+
+input CreateMessageInput {
+  content: String!
+  groupId: String!
+  userId: String!
+}
+
 input CreateUserInput {
   email: String!
   name: String!
   password: String!
 }
 
+type Group {
+  createdAt: String!
+  id: String!
+  messages: Message
+  name: String!
+  updatedAt: String!
+  users: User
+}
+
+type Message {
+  content: String!
+  createdAt: String!
+  group: Group!
+  id: String!
+  updatedAt: String!
+  user: User!
+}
+
 type Mutation {
+  createGroup(createGroupInput: CreateGroupInput!): Group!
+  createMessage(createMessageInput: CreateMessageInput!): Message!
   createUser(createUserInput: CreateUserInput!): User!
   register(registerUserInput: CreateUserInput!): User!
   removeUser(id: String!): User!
@@ -21,8 +52,15 @@ type Mutation {
 }
 
 type Query {
+  group: Group!
+  groups: [Group!]!
+  messages: [Message!]!
   user(id: String!): User!
   users: [User!]!
+}
+
+type Subscription {
+  messageAdded(groupId: String!): Message!
 }
 
 input UpdateUserInput {
@@ -34,7 +72,9 @@ input UpdateUserInput {
 
 type User {
   email: String!
+  groups: [Group!]
   id: String!
+  messages: [Message!]
   name: String!
   password: String!
 }

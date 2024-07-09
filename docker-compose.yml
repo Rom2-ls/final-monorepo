@@ -1,4 +1,18 @@
 services:
+  # backend-graphql:
+  #   container_name: backend-graphql
+  #   build:
+  #     context: .
+  #     dockerfile: ./.docker/backend-graphql.Dockerfile
+  #   restart: always
+  #   environment:
+  #     - BACKEND_PORT=3100
+  #   ports:
+  #     - 3100:3100
+  #   volumes:
+  #     - .:/app
+  #   command: pnpm run start:dev
+
   postgres:
     image: postgres
     environment:
@@ -9,3 +23,9 @@ services:
       - "5432:5432"
     volumes:
       - ./data:/var/lib/postgresql/data
+
+  redis:
+    image: redis:latest
+    container_name: redis
+    ports:
+      - "6379:6379"

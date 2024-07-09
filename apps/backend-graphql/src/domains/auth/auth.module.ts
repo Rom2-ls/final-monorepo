@@ -5,8 +5,8 @@ import { UserModule } from '../user/user.module';
 import { PassportModule } from '@nestjs/passport';
 import { JwtModule } from '@nestjs/jwt';
 import { PrismaModule } from '../prisma/prisma.module';
-import { LocalStrategy } from '../strategies/local.strategy';
-import { JwtStrategy } from '../strategies/jwt.strategy';
+import { LocalStrategy } from '../../strategies/local.strategy';
+import { JwtStrategy } from '../../strategies/jwt.strategy';
 
 @Module({
   imports: [

@@ -12,7 +12,11 @@ export class GroupResolver {
   @UseGuards(GqlAuthGuard)
   @Query(() => [Group], { name: 'groups' })
   findAll() {
-    return this.prisma.group.findMany();
+    return this.prisma.group.findMany({
+      include: {
+        messages: true,
+      },
+    });
   }
 
   @UseGuards(GqlAuthGuard)
@@ -20,6 +24,25 @@ export class GroupResolver {
   findOne(id: string) {
     return this.prisma.group.findUnique({
       where: { id },
+    });
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Group], { name: 'groupsByUser' })
+  findGroupsByUser(@Args('userId') userId: string) {
+    return this.prisma.group.findMany({
+      where: {
+        users: {
+          some: {
+            id: userId,
+          },
+        },
+      },
+      include: {
+        messages: {
+          take: 5,
+        },
+      },
     });
   }
 

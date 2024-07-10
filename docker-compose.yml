@@ -2,16 +2,28 @@ services:
   # backend-graphql:
   #   container_name: backend-graphql
   #   build:
-  #     context: .
-  #     dockerfile: ./.docker/backend-graphql.Dockerfile
-  #   restart: always
+  #     dockerfile: ./apps/backend-graphql/Dockerfile
+  #   restart: on-failure
   #   environment:
   #     - BACKEND_PORT=3100
+  #   depends_on:
+  #     - postgres
+  #     - redis
   #   ports:
   #     - 3100:3100
   #   volumes:
-  #     - .:/app
-  #   command: pnpm run start:dev
+  #     - ./apps/backend-graphql:/app/backend-graphql
+
+  # frontend-react:
+  #   container_name: frontend-react
+  #   build:
+  #     context: .
+  #     dockerfile: apps/frontend-react/frontend-react.Dockerfile
+  #   restart: on-failure
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./apps/frontend-react:/app/frontend-react
 
   postgres:
     image: postgres

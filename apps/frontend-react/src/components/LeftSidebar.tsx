@@ -1,6 +1,6 @@
 // LeftSidebar.tsx
 import React from "react";
-import { useQuery, gql, useSubscription } from "@apollo/client";
+import { useQuery, gql } from "@apollo/client";
 
 import "./LeftSidebar.css";
 
@@ -42,13 +42,13 @@ const GET_GROUPS_BY_USER = gql`
 //   }
 // `;
 
-const MESSAGE_SUBSCRIPTION = gql`
-  subscription OnMessageAdded($groupId: String!) {
-    messageAdded(groupId: $groupId) {
-      content
-    }
-  }
-`;
+// const MESSAGE_SUBSCRIPTION = gql`
+//   subscription OnMessageAdded($groupId: String!) {
+//     messageAdded(groupId: $groupId) {
+//       content
+//     }
+//   }
+// `;
 
 const LeftSidebar: React.FC<{
   setSelectedConversation: (conversation: Conversation | null) => void;
@@ -63,14 +63,14 @@ const LeftSidebar: React.FC<{
     },
   });
 
-  const { data: message, error: messageError } = useSubscription(
-    MESSAGE_SUBSCRIPTION,
-    {
-      variables: { groupId: "clydieym60002zzav447se3eo" },
-    }
-  );
+  // const { data: message, error: messageError } = useSubscription(
+  //   MESSAGE_SUBSCRIPTION,
+  //   {
+  //     variables: { groupId: "clydieym60002zzav447se3eo" },
+  //   }
+  // );
 
-  if (messageError) return <p>Message error :{messageError.message}</p>;
+  // if (messageError) return <p>Message error :{messageError.message}</p>;
 
   if (groupsLoading) return <p>Groups loading...</p>;
   if (groupsError) return <p>Groups error :{groupsError.message}</p>;

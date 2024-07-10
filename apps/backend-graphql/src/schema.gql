@@ -26,10 +26,10 @@ input CreateUserInput {
 type Group {
   createdAt: String!
   id: String!
-  messages: Message
+  messages: [Message!]
   name: String!
   updatedAt: String!
-  users: User
+  users: [User!]
 }
 
 type Message {
@@ -54,7 +54,9 @@ type Mutation {
 type Query {
   group: Group!
   groups: [Group!]!
+  groupsByUser(userId: String!): [Group!]!
   messages: [Message!]!
+  messagesByGroup(groupId: String!): [Message!]!
   user(id: String!): User!
   users: [User!]!
 }

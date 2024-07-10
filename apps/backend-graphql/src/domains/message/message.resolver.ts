@@ -1,7 +1,7 @@
 import { Message } from '@/entities/message.entity';
 import { Resolver, Query, Mutation, Args, Subscription } from '@nestjs/graphql';
 import { PrismaService } from '@/domains/prisma/prisma.service';
-import { Inject, UseGuards } from '@nestjs/common';
+import { Inject, Logger, UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from '@/guards/gql-auth.guard';
 import { CreateMessageInput } from './dto/create-message.input';
 import { InjectQueue } from '@nestjs/bullmq';
@@ -16,6 +16,8 @@ export class MessageResolver {
     @Inject('PUB_SUB') private readonly pubSub: PubSub,
   ) {}
 
+  private readonly logger = new Logger(MessageResolver.name);
+
   @UseGuards(GqlAuthGuard)
   @Query(() => [Message], { name: 'messages' })
   findAll() {
@@ -25,15 +27,6 @@ export class MessageResolver {
         group: true,
       },
     });
-  }
-
-  @UseGuards(GqlAuthGuard)
-  @Subscription(() => Message, {
-    filter: (payload, variables) =>
-      payload.messageAdded.group.id === variables.groupId,
-  })
-  messageAdded(@Args('groupId') groupId: string) {
-    return this.pubSub.asyncIterator('messageAdded');
   }
 
   @UseGuards(GqlAuthGuard)
@@ -49,5 +42,30 @@ export class MessageResolver {
     this.messagesQueue.add('createMessage', createMessageInput);
 
     return placeholderMessage;
+  }
+
+  @UseGuards(GqlAuthGuard)
+  @Query(() => [Message], { name: 'messagesByGroup' })
+  findMessagesByGroup(@Args('groupId') groupId: string) {
+    return this.prisma.message.findMany({
+      where: {
+        groupId,
+      },
+      include: {
+        user: true,
+        group: true,
+      },
+    });
+  }
+
+  @Subscription(() => Message, {
+    filter: (payload, variables) =>
+      payload.messageAdded.groupId === variables.groupId,
+  })
+  messageAdded(@Args('groupId') groupId: string) {
+    this.logger.debug('Message added subscription', {
+      groupId,
+    });
+    return this.pubSub.asyncIterator('messageAdded');
   }
 }

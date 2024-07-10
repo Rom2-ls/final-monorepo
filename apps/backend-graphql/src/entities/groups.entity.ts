@@ -10,10 +10,10 @@ export class Group {
   @Field(() => String)
   name: string;
 
-  @Field(() => User, { nullable: true })
+  @Field(() => [User], { nullable: true })
   users?: User[];
 
-  @Field(() => Message, { nullable: true })
+  @Field(() => [Message], { nullable: true })
   messages?: Message[];
 
   @Field(() => String)

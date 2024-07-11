@@ -1,7 +1,6 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
 import "./index.css";
-import App from "./App";
 import {
   ApolloClient,
   InMemoryCache,
@@ -13,6 +12,13 @@ import { GraphQLWsLink } from "@apollo/client/link/subscriptions";
 import { setContext } from "@apollo/client/link/context";
 import { getMainDefinition } from "@apollo/client/utilities";
 import { createClient } from "graphql-ws";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import LoginPage from "./components/LoginPage";
+import RegisterPage from "./components/RegisterPage";
+import DashboardPage from "./components/DashboardPage";
+import NewGroup from "./components/NewGroup";
+import ErrorPage from "./components/ErrorPage";
+import Chat from "./components/Chat";
 
 const wsLink = new GraphQLWsLink(
   createClient({
@@ -54,13 +60,43 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
 });
 
+const router = createBrowserRouter([
+  {
+    path: "/",
+    element: <LoginPage />,
+    errorElement: <ErrorPage />,
+  },
+  {
+    path: "/login",
+    element: <LoginPage />,
+  },
+  {
+    path: "/register",
+    element: <RegisterPage />,
+  },
+  {
+    path: "/dashboard",
+    element: <DashboardPage />,
+    children: [
+      {
+        path: "new-group",
+        element: <NewGroup />,
+      },
+      {
+        path: "group/:groupId",
+        element: <Chat />,
+      },
+    ],
+  },
+]);
+
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement
 );
 root.render(
   <React.StrictMode>
     <ApolloProvider client={client}>
-      <App />
+      <RouterProvider router={router} />
     </ApolloProvider>
   </React.StrictMode>
 );

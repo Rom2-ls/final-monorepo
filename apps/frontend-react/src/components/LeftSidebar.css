@@ -1,44 +1,128 @@
-.left-sidebar {
+/* Container */
+.side-bar-left-sidebar {
+  width: 300px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  border-right: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 20px;
+  height: 100vh;
 }
 
-.conversations {
+/* Logo Container */
+.side-bar-logo-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
 }
 
-.conversation {
-    padding: 10px;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    border-bottom: 1px solid #ccc;
+.side-bar-logo {
+  max-width: 150px;
+  height: auto;
 }
 
-.conversation:hover {
-    background-color: #f0f0f0;
+/* Actions */
+.side-bar-actions {
+  margin-bottom: 20px;
 }
 
-.active {
-    background-color: #f0f0f0;
+.side-bar-new-message-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
 }
 
-.status-indicator {
-    width: 10px;
-    height: 10px;
-    border-radius: 50%;
-    margin-right: 10px;
+.side-bar-new-message-btn:hover {
+  background-color: #0056b3;
 }
 
-.green {
-    background-color: green;
+/* Conversations */
+.side-bar-conversations {
+  flex: 1;
+  overflow-y: auto;
 }
 
-.grey {
-    background-color: grey;
+.side-bar-conversations h3 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 10px;
 }
 
-.orange {
-    background-color: orange;
+.side-bar-conversation {
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  cursor: pointer;
 }
 
-.person-name {
-    margin-left: 10px;
+.side-bar-conversation:hover {
+  background-color: #f1f1f1;
+}
+
+.side-bar-person-name {
+  font-weight: bold;
+  color: #333;
+}
+
+.side-bar-message-preview {
+  color: #666;
+  font-size: 0.9rem;
+  margin-top: 5px;
+}
+
+/* Settings */
+.side-bar-settings {
+  margin-top: 20px;
+  padding-top: 10px;
+  border-top: 1px solid #ddd;
+}
+
+.side-bar-settings p {
+  margin: 5px 0;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.side-bar-logout-btn {
+  width: 100%;
+  padding: 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  font-size: 1rem;
+  cursor: pointer;
+  text-align: center;
+}
+
+.side-bar-logout-btn:hover {
+  background-color: #c82333;
+}
+
+.side-bar-logout-btn p {
+  margin: 0;
+  display: inline-block;
+}
+
+.side-bar-group-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+}
+
+.side-bar-group-item {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  padding: 5px;
 }

@@ -1,0 +1,121 @@
+/* Container */
+.new-group-container {
+  width: 50%;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f7f7f7;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+/* Header */
+.new-group-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.new-group-header button {
+  padding: 10px 15px;
+  border: none;
+  border-radius: 5px;
+  background-color: #007bff;
+  color: white;
+  cursor: pointer;
+}
+
+.new-group-header button:hover {
+  background-color: #0056b3;
+}
+
+.new-group-header p {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+/* Form */
+.new-group-form input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.new-group-form button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  background-color: #28a745;
+  color: white;
+  cursor: pointer;
+}
+
+.new-group-form button:hover {
+  background-color: #218838;
+}
+
+/* Users List */
+.new-group-users-list {
+  margin-bottom: 20px;
+}
+
+.new-group-user-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.new-group-user-item:hover {
+  background-color: #f1f1f1;
+}
+
+.new-group-selected-users div {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 5px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  background-color: #e9ecef;
+}
+
+.new-group-selected-users button {
+  padding: 5px 10px;
+  border: none;
+  border-radius: 5px;
+  background-color: #dc3545;
+  color: white;
+  cursor: pointer;
+}
+
+.new-group-selected-users button:hover {
+  background-color: #c82333;
+}
+
+.new-group-error-message-wrapper {
+  margin: 10px 0;
+  padding: 10px;
+  border: 1px solid #dc3545;
+  background-color: #f8d7da;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.new-group-error-message {
+  color: #dc3545;
+  font-size: 0.9rem;
+  font-weight: bold;
+}

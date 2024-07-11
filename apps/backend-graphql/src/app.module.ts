@@ -9,6 +9,7 @@ import { PrismaModule } from '@/domains/prisma/prisma.module';
 import { AuthModule } from '@/domains/auth/auth.module';
 import { MessageModule } from '@/domains/message/message.module';
 import { GroupModule } from '@/domains/group/group.module';
+import { EventModule } from './domains/event/event.module';
 
 @Module({
   imports: [
@@ -34,6 +35,7 @@ import { GroupModule } from '@/domains/group/group.module';
     AuthModule,
     MessageModule,
     GroupModule,
+    EventModule,
   ],
 })
 export class AppModule {}

@@ -2,7 +2,7 @@ import { Resolver, Mutation, Args } from '@nestjs/graphql';
 import { UseGuards } from '@nestjs/common';
 
 import { CreateUserInput } from '../user/dto/create-user.input';
-import { User } from '../../entities/user.entity';
+import { User } from '@/entities/user.entity';
 import { LocalAuthGuard } from '../../guards/local-auth.guard';
 import { PrismaService } from '../prisma/prisma.service';
 

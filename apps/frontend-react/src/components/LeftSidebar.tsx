@@ -1,11 +1,10 @@
-// LeftSidebar.tsx
-import React from "react";
+import React, { useState } from "react";
 import { useQuery, gql } from "@apollo/client";
-
+import { Link, useNavigate } from "react-router-dom";
 import "./LeftSidebar.css";
 
 export interface Conversation {
-  id: number;
+  id: string;
   name: string;
   status: string;
 }
@@ -23,94 +22,64 @@ const GET_GROUPS_BY_USER = gql`
   }
 `;
 
-// const GET_USERS = gql`
-//   query Get_Users {
-//     users {
-//       id
-//       name
-//       email
-//       password
-//       messages {
-//         id
-//         content
-//       }
-//       groups {
-//         id
-//         name
-//       }
-//     }
-//   }
-// `;
+const LeftSidebar: React.FC = () => {
+  const [currentUser] = useState(
+    JSON.parse(localStorage.getItem("user") || "{}")
+  );
+  const navigate = useNavigate();
 
-// const MESSAGE_SUBSCRIPTION = gql`
-//   subscription OnMessageAdded($groupId: String!) {
-//     messageAdded(groupId: $groupId) {
-//       content
-//     }
-//   }
-// `;
-
-const LeftSidebar: React.FC<{
-  setSelectedConversation: (conversation: Conversation | null) => void;
-}> = ({ setSelectedConversation }) => {
   const {
     data: groups,
     error: groupsError,
     loading: groupsLoading,
   } = useQuery(GET_GROUPS_BY_USER, {
     variables: {
-      userId: "clydicdg90000zzavyjrjctk0",
+      userId: currentUser.id,
     },
   });
-
-  // const { data: message, error: messageError } = useSubscription(
-  //   MESSAGE_SUBSCRIPTION,
-  //   {
-  //     variables: { groupId: "clydieym60002zzav447se3eo" },
-  //   }
-  // );
-
-  // if (messageError) return <p>Message error :{messageError.message}</p>;
 
   if (groupsLoading) return <p>Groups loading...</p>;
   if (groupsError) return <p>Groups error :{groupsError.message}</p>;
 
-  const handleConversationClick = (conversation: Conversation) => {
-    setSelectedConversation(conversation);
+  const handleLogout = () => {
+    localStorage.removeItem("access_token");
+    localStorage.removeItem("user");
+    navigate("/login");
   };
 
   return (
-    <div className="left-sidebar">
-      <div className="logo-container">
-        <img src="/path/to/logo.png" alt="Logo" className="logo" />
+    <div className="side-bar">
+      <div className="side-bar-logo-container">
+        <img src="/path/to/logo.png" alt="Logo" className="side-bar-logo" />
       </div>
-      <div className="actions">
-        <button className="new-message-btn">
-          <i className="fas fa-comment"></i> Nouveau message
+      <div className="side-bar-actions">
+        <button
+          className="side-bar-new-message-btn"
+          onClick={() => navigate("new-group")}
+        >
+          Nouveau message
         </button>
-        <i className="fas fa-search search-icon"></i>
       </div>
-      <div className="conversations">
+      <div className="side-bar-conversations">
         <h3>Mes conversations</h3>
-        {groups.groupsByUser.map((group: any) => (
-          <div
-            key={group.id}
-            className="conversation"
-            onClick={() => handleConversationClick(group)}
-          >
-            <span className="person-name">{group.name}</span>
-            <span className="message-preview">
-              {group.messages.length > 0 ? group.messages[0].content : ""}
-            </span>
-          </div>
-        ))}
+        <div className="side-bar-group-container">
+          {groups.groupsByUser.map((group: any) => (
+            <Link
+              key={group.id}
+              to={`group/${group.id}`}
+              className="side-bar-group-item"
+            >
+              {group.name}
+            </Link>
+          ))}
+        </div>
       </div>
-      <div className="settings">
-        <button className="settings-btn">
-          <i className="fas fa-cog"></i> Paramètres
-        </button>
-        <button className="logout-btn">
-          <i className="fas fa-sign-out-alt"></i> Déconnexion
+      <div className="side-bar-settings">
+        <p>Information utilisateur</p>
+        <p>{currentUser.name}</p>
+        <p>{currentUser.email}</p>
+        <button className="side-bar-logout-btn" onClick={handleLogout}>
+          Déconnexion
         </button>
       </div>
     </div>

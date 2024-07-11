@@ -15,15 +15,20 @@ export class GroupResolver {
     return this.prisma.group.findMany({
       include: {
         messages: true,
+        users: true,
       },
     });
   }
 
   @UseGuards(GqlAuthGuard)
   @Query(() => Group, { name: 'group' })
-  findOne(id: string) {
+  findOne(@Args('id') id: string) {
     return this.prisma.group.findUnique({
       where: { id },
+      include: {
+        messages: true,
+        users: true,
+      },
     });
   }
 

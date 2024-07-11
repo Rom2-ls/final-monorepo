@@ -1,16 +1,12 @@
-import { useState } from "react";
-import LeftSidebar, { type Conversation } from "./LeftSidebar";
-import MainContent from "./MainContent";
+import LeftSidebar from "./LeftSidebar";
 import "./DashboardPage.css";
+import { Outlet } from "react-router-dom";
 
 const DashboardPage = () => {
-  const [selectedConversation, setSelectedConversation] =
-    useState<Conversation | null>(null);
-
   return (
     <div className="dashboard">
-      <LeftSidebar setSelectedConversation={setSelectedConversation} />
-      <MainContent selectedConversation={selectedConversation} />
+      <LeftSidebar />
+      <Outlet />
     </div>
   );
 };
